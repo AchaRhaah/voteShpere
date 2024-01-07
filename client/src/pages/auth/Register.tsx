@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { handleError } from "../../lib/functions/ErrorMessages";
 import { Logo, Avatar, GoogleBtn, Input, Loader } from "../../components/atoms";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../lib/hooks/index";
-import { registerFunc } from "../../redux/slices/auth/thunk/auth.thunk";
+import { registerThunk } from "../../redux/thunk/auth.thunk";
 import { authDataType } from "../../repository/types/auth/AuthTypes";
 import { RootState } from "../../redux/store/store";
 
 export default function Register() {
+  const navigation = useNavigate();
   const dispatch = useAppDispatch();
+  navigation("/dashboard/voting");
   const { register } = useAppSelector((state: RootState) => state.authSlice);
 
   const [userData, setUserData] = useState<authDataType>({
@@ -17,6 +19,12 @@ export default function Register() {
     email: "",
   });
   const errors = handleError(register.message);
+
+  useEffect(() => {
+    if (register.isSuccess) {
+      navigation("/dashboard/voting");
+    }
+  }, [register.isSuccess, navigation]);
 
   // handle input change
 
@@ -31,13 +39,13 @@ export default function Register() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(registerFunc(userData));
+    dispatch(registerThunk(userData));
   };
 
   return (
     <div className="w-full h-screen flex ">
       {/* left side */}
-      <div className="w-1/2 flex flex-col justify-center px-12">
+      <div className="w-1/2 flex flex-col justify-center px-20">
         <GoogleBtn text="Sign up with google" />
         <div className="w-full flex items-center justify-between mt-4">
           <div className="border-t-[1.4px] w-[45%] "></div>
@@ -89,7 +97,7 @@ export default function Register() {
           </button>
 
           <p className="text-xs text-[#A9AEB5]">
-            Don't have an account?{" "}
+            Have an account?{" "}
             <Link to="/">
               <span className="text-[#065AD8]">Login here</span>
             </Link>{" "}
@@ -97,7 +105,7 @@ export default function Register() {
         </form>
       </div>
       {/* right side */}
-      <div className="w-1/2 bg-[#065AD8] flex flex-col text-white px-16 justify-center items-left">
+      <div className="w-1/2 bg-[#065AD8] flex flex-col text-white px-20 justify-center items-left">
         <Logo />
         <h1 className="font-bold text-2xl mt-6">
           Empowering Democracy, One Vote at a Time. Welcome to our Online Voting
