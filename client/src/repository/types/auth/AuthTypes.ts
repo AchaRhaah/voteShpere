@@ -5,15 +5,20 @@ export interface authDataType {
   email: string;
   username?: string;
 }
+export interface UserType {
+  userId: string;
+}
 export interface AuthStateType {
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;
   message: AxiosError | any;
-  user: any | null;
+  user: UserType;
+  accessToken: String;
 }
 
 export interface AuthType {
   login: AuthStateType;
   register: AuthStateType;
+  logout: AuthStateType;
 }
