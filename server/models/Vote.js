@@ -1,18 +1,15 @@
 const mongoose = require("mongoose");
 
-const candidateSchema = new mongoose.Schema({
+const voteSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   election: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Election",
+    ref: "User",
     required: true,
   },
-  description: {
-    type: String,
+  candidate: {
+    type: mongoose.Schema.type.ObjectId,
+    ref: "Candidate",
     required: true,
   },
 });
-
-const candidate = mongoose.model("Candidate", candidateSchema);
-
-module.exports = Candidate;

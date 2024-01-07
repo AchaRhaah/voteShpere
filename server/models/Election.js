@@ -9,8 +9,16 @@ const electionSchema = new mongoose.Schema({
     required: true,
   },
   invitedUsers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  description: {
+    type: String,
+    required: true,
+  },
   isOpenToAll: { type: Boolean, default: false },
   candidates: [{ type: mongoose.Schema.Types.ObjectId, ref: "Candidate" }],
+  link: {
+    type: String,
+    required: false,
+  },
 });
 
 const Election = mongoose.model("Election", electionSchema);
