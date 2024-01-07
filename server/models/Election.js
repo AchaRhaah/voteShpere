@@ -1,3 +1,4 @@
+// election Schema
 const mongoose = require("mongoose");
 
 const electionSchema = new mongoose.Schema({
