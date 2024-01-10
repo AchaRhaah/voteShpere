@@ -23,6 +23,8 @@ const userSchema = new mongoose.Schema({
   },
 });
 userSchema.index({ email: 1 }, { unique: true });
+userSchema.index({ username: 1 }, { unique: true });
+
 
 // fire a function after a doc has been saved
 
