@@ -7,6 +7,11 @@ const candidateSchema = new mongoose.Schema({
     ref: "Election",
     required: true,
   },
+
+  voteCount: {
+    type: Number,
+    default: 0,
+  },
   description: {
     type: String,
     required: true,

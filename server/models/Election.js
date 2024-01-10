@@ -17,8 +17,13 @@ const electionSchema = new mongoose.Schema({
   candidates: [{ type: mongoose.Schema.Types.ObjectId, ref: "Candidate" }],
   link: {
     type: String,
-    required: false,
   },
+  results: [
+    {
+      candidate: { type: mongoose.Schema.Types.ObjectId, ref: "Candidate" },
+      voteCount: { type: Number, default: 0 },
+    },
+  ],
 });
 
 const Election = mongoose.model("Election", electionSchema);
