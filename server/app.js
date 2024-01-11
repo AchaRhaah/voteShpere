@@ -1,7 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const authRoutes = require("./routes/authRoutes");
-const cookieRoutes = require("./routes/cookieRoutes");
+const authRoutes = require("./routes/authRoutes/authRoutes");
+const electionRoutes = require("./routes/electionRoutes/electionRoutes");
+const cookieRoutes = require("./routes/cookieRoutes/cookieRoutes");
 const cookieParser = require("cookie-parser");
 const app = express();
 const cors = require("cors");
@@ -11,8 +12,9 @@ app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
-app.use(authRoutes);
-app.use(cookieRoutes);
+app.use("/api", authRoutes);
+app.use("/api", electionRoutes);
+app.use("/api", cookieRoutes);
 
 app.set("view engin", "ejs");
 

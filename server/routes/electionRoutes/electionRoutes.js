@@ -1,11 +1,12 @@
 const { Router } = require("express");
-const nodemailer = require("nodemailer");
-const Election = require("../models/Election");
-const User = require("../models/User");
+const router = Router();
+// const nodemailer = require("nodemailer");
+const Election = require("../../models/Election");
+const User = require("../../models/User");
 
 // Routes to create an election
 
-Router.post("/create-election", async (req, res) => {
+router.post("/create-election", async (req, res) => {
   try {
     const {
       title,
@@ -35,5 +36,17 @@ Router.post("/create-election", async (req, res) => {
       startDate,
       endDate,
     });
-  } catch (error) {}
+
+    //   send emails to invited users
+    if (!isOpenToAll) {
+    }
+
+    res.status(201).json({ election });
+    //
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error });
+  }
 });
+
+module.exports = router;
