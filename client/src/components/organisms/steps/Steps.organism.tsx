@@ -34,13 +34,13 @@ export default function Steps({ location }: { location: string }) {
 
           <li
             className={`relative flex items-center justify-center gap-2 p-4 ${
-              location == "candidates" ? "text-[#065AD8]" : ""
+              location == "candidate" ? "text-[#065AD8]" : ""
             }`}
             onClick={() => {
               navigate("/dashboard/create-election/candidate");
             }}
           >
-            {location == "candidates" ? (
+            {location == "candidate" ? (
               <IoPeopleSharp className="text-2xl" />
             ) : (
               <IoPeopleOutline className="text-2xl" />

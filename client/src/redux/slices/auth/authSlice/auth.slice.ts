@@ -65,6 +65,7 @@ const authSlice = createSlice({
         state.register.accessToken = action.payload.data.token;
         state.register.user.userId = action.payload.data.user;
         state.register.message = "";
+        console.log("fulfilled login")
       })
       .addCase(loginThunk.pending, (state) => {
         state.login.isLoading = true;
@@ -84,6 +85,7 @@ const authSlice = createSlice({
         state.login.accessToken = action.payload.data.token;
         state.login.user.userId = action.payload.data.user;
         state.login.message = "";
+        console.log("fulfilled login");
       })
       .addCase(LogoutThunk.pending, (state) => {
         state.logout.isLoading = true;

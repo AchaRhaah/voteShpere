@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { BsPersonPlus } from "react-icons/bs";
-import { Input, CandidateInfo } from "../../../../../components/atoms";
+import { CandidateInfo } from "../../../../../components/molecules";
 import { CandidateDataType } from "../../../../../repository/types/types";
 import { useNavigate } from "react-router-dom";
+import { updateData } from "../../../../../redux/slices/createElection/electionInput.slice";
 
 export default function Candidate() {
   const [candidates, setCandidates] = useState<CandidateDataType[]>([]);
@@ -13,6 +14,7 @@ export default function Candidate() {
   };
 
   const handleNextStage = () => {
+    updateData(candidates);
     navigation("/dashboard/create-election/voters");
   };
 

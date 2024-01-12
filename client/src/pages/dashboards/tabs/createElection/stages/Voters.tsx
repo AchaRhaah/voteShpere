@@ -93,8 +93,7 @@ export default function Voters() {
               className="flex gap-2 border p-4 rounded-lg bg-[#065ADB] text-white hover:bg-white hover:text-[#065adb] hover:border-[#065ADB] w-[30%] justify-center transition-all duration-100 ease-in-out mt-4"
               onClick={handleAddVoter}
             >
-              <IoMdSend className="text-xl" />
-              <p>Send Invite</p>
+              <p>Create Election</p>
             </button>
             <p
               className="pt-4 text-[#065ADB] underline"
@@ -124,8 +123,7 @@ export default function Voters() {
             className="flex gap-2 border p-4 rounded-lg bg-[#065ADB] text-white hover:bg-white hover:text-[#065adb] hover:border-[#065ADB] w-[30%] justify-center transition-all duration-100 ease-in-out mt-4"
             onClick={handleAddVoter}
           >
-            <IoMdShare className="text-xl" />
-            <p>Share</p>
+            <p>Create Election</p>
           </button>
           <p
             className="pt-4 text-[#065ADB] underline"

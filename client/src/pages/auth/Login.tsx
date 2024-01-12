@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Logo, Avatar, GoogleBtn, Input, Loader } from "../../components/atoms";
+import { loginThunk } from "../../redux/thunk/auth.thunk";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../lib/hooks";
 import { RootState } from "../../redux/store/store";
-import { loginThunk } from "../../redux/thunk/auth.thunk";
 import { authDataType } from "../../repository/types/auth/AuthTypes";
 import { handleError } from "../../lib/functions/ErrorMessages";
 
@@ -39,7 +39,7 @@ export default function Login() {
   return (
     <div className="w-full h-screen flex ">
       {/* left side */}
-      <div className="w-1/2 flex flex-col justify-center px-20">
+      <div className="w-1/2 flex flex-col justify-center px-12">
         <GoogleBtn text="Login with Google" />
         <div className="w-full flex items-center justify-between mt-4">
           <div className="border-t-[1.4px] w-[45%] "></div>
@@ -77,7 +77,7 @@ export default function Login() {
           </button>
 
           <p className="text-xs text-[#A9AEB5]">
-            Don't have an account?{" "}
+            Already have an account?{" "}
             <Link to="/register">
               <span className="text-[#065AD8]">Signup here</span>
             </Link>{" "}
@@ -85,7 +85,7 @@ export default function Login() {
         </form>
       </div>
       {/* right side */}
-      <div className="w-1/2 bg-[#065AD8] flex flex-col text-white px-20 justify-center items-left">
+      <div className="w-1/2 bg-[#065AD8] flex flex-col text-white px-16 justify-center items-left">
         <Logo />
         <h1 className="font-bold text-2xl mt-6">
           Empowering Democracy, One Vote at a Time. Welcome to our Online Voting
