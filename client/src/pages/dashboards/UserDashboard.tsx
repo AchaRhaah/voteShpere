@@ -6,10 +6,9 @@ export default function UserDashboard() {
   return (
     <div className="w-full h-screen flex justify-between">
       <div>
-
-      <Sidebar />
+        <Sidebar />
       </div>
-      <div className="w-[82%]">
+      <div className="w-[80%]">
         <div className="h-screen overflow-y-auto">
           <Outlet />
         </div>

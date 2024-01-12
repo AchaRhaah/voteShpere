@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Input } from ".";
+import { Input } from "../atoms";
 import { CandidateDataType } from "../../repository/types/types";
 
 interface CandidateInfoProps {

@@ -1,4 +1,4 @@
-const SERVER_URL = "https://voting-c2mn.onrender.com/";
+const SERVER_URL = "https://voting-backend-xmol.onrender.com/api/";
 
 export const AuthApis = {
   register: SERVER_URL + "",
