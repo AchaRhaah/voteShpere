@@ -17,7 +17,6 @@ const electionInputSlice = createSlice({
   initialState,
   reducers: {
     updateData: (state, action) => {
-      console.log("*******here**********");
       return { ...state, ...action.payload };
     },
   },

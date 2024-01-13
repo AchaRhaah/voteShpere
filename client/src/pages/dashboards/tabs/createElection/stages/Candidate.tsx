@@ -26,7 +26,6 @@ export default function Candidate() {
     ]);
     e.preventDefault();
   };
-  console.log(candidates);
   return (
     <div className="w-full flex flex-col items-center justify-center my-3">
       <h3 className="font-bold text-2xl w-[90%] flex justify-center">
