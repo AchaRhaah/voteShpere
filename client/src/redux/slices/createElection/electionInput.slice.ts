@@ -17,10 +17,17 @@ const electionInputSlice = createSlice({
   initialState,
   reducers: {
     updateData: (state, action) => {
-      return { ...state, ...action.payload };
+      console.log(action.payload);
+
+      Object.assign(state, action.payload);
+
+      return state;
     },
+    updateCandidates: (state, action) => {
+      state.candidates = action.payload
+    }
   },
 });
 
-export const { updateData } = electionInputSlice.actions;
+export const { updateData, updateCandidates } = electionInputSlice.actions;
 export default electionInputSlice.reducer;

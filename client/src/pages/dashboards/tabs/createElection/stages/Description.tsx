@@ -15,7 +15,8 @@ export default function Description() {
   const [endDate, setEndDate] = useState("");
   const [isFirstInputFilled, setIsFirstInputFilled] = useState(false);
 
-  const handleNextStage = () => {
+  const handleNextStage = (e: React.FormEvent) => {
+    e.preventDefault();
     dispatch(updateData(electionInfo));
     navigation("/dashboard/create-election/candidate");
   };
@@ -84,6 +85,7 @@ export default function Description() {
         </div>
         <button
           onClick={handleNextStage}
+          type="submit"
           className="bg-[#065AD8] text-white w-1/2 p-2 rounded-xl my-2"
         >
           Next

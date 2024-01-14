@@ -3,9 +3,14 @@ import { BsPersonPlus } from "react-icons/bs";
 import { CandidateInfo } from "../../../../../components/molecules";
 import { CandidateDataType } from "../../../../../repository/types/types";
 import { useNavigate } from "react-router-dom";
-import { updateData } from "../../../../../redux/slices/createElection/electionInput.slice";
+import { useAppDispatch, useAppSelector } from "../../../../../lib/hooks";
+import { RootState } from "../../../../../redux/store/store";
+import { updateCandidates } from "../../../../../redux/slices/createElection/electionInput.slice";
 
 export default function Candidate() {
+  const dispatch = useAppDispatch();
+  const state = useAppSelector((state: RootState) => state.electionInputSlice);
+  console.log(state);
   const [candidates, setCandidates] = useState<CandidateDataType[]>([]);
   const navigation = useNavigate();
   const [addCandidate, setAddCandidate] = useState<number>(0);
@@ -13,8 +18,9 @@ export default function Candidate() {
     navigation("/dashboard/create-election/candidate");
   };
 
-  const handleNextStage = () => {
-    updateData(candidates);
+  const handleNextStage = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(updateCandidates(candidates));
     navigation("/dashboard/create-election/voters");
   };
 
