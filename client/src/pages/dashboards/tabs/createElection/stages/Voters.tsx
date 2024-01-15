@@ -2,12 +2,24 @@ import React, { useState, useRef } from "react";
 import { BsPersonPlus } from "react-icons/bs";
 import { Input } from "../../../../../components/atoms";
 import { FaPeopleGroup, FaRegCopy } from "react-icons/fa6";
-import { IoMdSend, IoMdShare } from "react-icons/io";
+import {
+  updateData,
+  updateVoters,
+} from "../../../../../redux/slices/createElection/electionInput.slice";
+import { useAppDispatch, useAppSelector } from "../../../../../lib/hooks";
+import { RootState } from "../../../../../redux/store/store";
 
 export default function Voters() {
+  const dispatch = useAppDispatch();
+
   const [voterEmails, setVoterEmails] = useState<string[]>([]);
+  const [isOpenToAll, setIsOpenToAll] = useState<boolean>(true);
   const [newEmail, setNewEmail] = useState<string>("");
   const [voteType, setVoteType] = useState<string>();
+
+  const state = useAppSelector((state: RootState) => state.electionInputSlice);
+  console.log(state);
+
   const handleAddVoter = (e: React.MouseEvent) => {
     e.preventDefault();
     if (newEmail.trim() !== "") {
@@ -15,6 +27,7 @@ export default function Voters() {
       setNewEmail("");
     }
   };
+
   const handleRemoveVOter = (e: React.MouseEvent, index: number) => {
     e.preventDefault();
     setVoterEmails((prevEmails) => {
@@ -31,6 +44,13 @@ export default function Voters() {
       document.execCommand("copy");
     }
   };
+
+  const handleCreateElection = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(updateData(isOpenToAll));
+    dispatch(updateVoters(voterEmails));
+  };
+
   return (
     <div className="w-full flex flex-col items-center justify-center my-3">
       <h3 className="font-bold text-2xl w-[90%] flex justify-center">Voters</h3>
@@ -38,14 +58,20 @@ export default function Voters() {
         <div className="w-[90%] flex justify-center gap-6 mt-8">
           <button
             className="flex gap-2 border p-4 rounded-lg border-[#EC9A4A] w-[30%]"
-            onClick={() => setVoteType("specific")}
+            onClick={() => {
+              setVoteType("specific");
+              setIsOpenToAll(false);
+            }}
           >
             <BsPersonPlus className="text-xl" />
             <p>Add specific voters</p>
           </button>
           <button
             className="flex gap-2 border p-4 rounded-lg border-[#EC9A4A] w-[30%]"
-            onClick={() => setVoteType("general")}
+            onClick={() => {
+              setVoteType("general");
+              setIsOpenToAll(true);
+            }}
           >
             <FaPeopleGroup className="text-xl" />
             <p>Anyone with a link</p>
@@ -91,7 +117,7 @@ export default function Voters() {
             </button>
             <button
               className="flex gap-2 border p-4 rounded-lg bg-[#065ADB] text-white hover:bg-white hover:text-[#065adb] hover:border-[#065ADB] w-[30%] justify-center transition-all duration-100 ease-in-out mt-4"
-              onClick={handleAddVoter}
+              onClick={handleCreateElection}
             >
               <p>Create Election</p>
             </button>
@@ -99,6 +125,7 @@ export default function Voters() {
               className="pt-4 text-[#065ADB] underline"
               onClick={() => {
                 setVoteType("general");
+                setIsOpenToAll(true);
               }}
             >
               Send link to all registered members
@@ -121,7 +148,7 @@ export default function Voters() {
           </div>
           <button
             className="flex gap-2 border p-4 rounded-lg bg-[#065ADB] text-white hover:bg-white hover:text-[#065adb] hover:border-[#065ADB] w-[30%] justify-center transition-all duration-100 ease-in-out mt-4"
-            onClick={handleAddVoter}
+            onClick={handleCreateElection}
           >
             <p>Create Election</p>
           </button>
@@ -129,6 +156,7 @@ export default function Voters() {
             className="pt-4 text-[#065ADB] underline"
             onClick={() => {
               setVoteType("specific");
+              setIsOpenToAll(false);
             }}
           >
             Add specific members

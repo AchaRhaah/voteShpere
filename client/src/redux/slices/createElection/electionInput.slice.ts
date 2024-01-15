@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { AxiosError } from "axios";
 import { ElectionType } from "../../../repository/types/election/ElectionType";
 
 const initialState: ElectionType = {
@@ -7,6 +6,7 @@ const initialState: ElectionType = {
   description: "",
   isOpenToAll: false,
   candidates: [],
+  voters: [],
   creator: "",
   startDate: "",
   endDate: "",
@@ -17,17 +17,19 @@ const electionInputSlice = createSlice({
   initialState,
   reducers: {
     updateData: (state, action) => {
-      console.log(action.payload);
-
       Object.assign(state, action.payload);
 
       return state;
     },
     updateCandidates: (state, action) => {
-      state.candidates = action.payload
-    }
+      state.candidates = action.payload;
+    },
+    updateVoters: (state, action) => {
+      state.voters = action.payload;
+    },
   },
 });
 
-export const { updateData, updateCandidates } = electionInputSlice.actions;
+export const { updateData, updateCandidates, updateVoters } =
+  electionInputSlice.actions;
 export default electionInputSlice.reducer;

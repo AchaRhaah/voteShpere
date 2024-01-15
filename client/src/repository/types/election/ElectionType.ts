@@ -3,6 +3,7 @@ export interface ElectionType {
   description: string;
   isOpenToAll: boolean;
   candidates: string[];
+  voters?: string[];
   creator: string;
   startDate: string;
   endDate: string;
