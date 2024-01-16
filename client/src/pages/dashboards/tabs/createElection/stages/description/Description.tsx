@@ -1,16 +1,24 @@
-import React, { useState } from "react";
-import { Input } from "../../../../../components/atoms";
+import React, { useState, useEffect } from "react";
+import { Input } from "../../../../../../components/atoms";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useAppDispatch } from "../../../../../lib/hooks";
-import "react-datepicker/dist/react-datepicker.css";
+import { useAppDispatch } from "../../../../../../lib/hooks";
 import { useNavigate } from "react-router-dom";
-import { updateData } from "../../../../../redux/slices/createElection/electionInput.slice";
+import { updateData } from "../../../../../../redux/slices/createElection/electionInput.slice";
+import "react-toastify/dist/ReactToastify.css";
+
+const TAB_KEY = "createElectionDescription";
 
 export default function Description() {
   const navigation = useNavigate();
   const dispatch = useAppDispatch();
-  const [electionInfo, setElectionData] = useState({});
+  const storedElectionInfo = JSON.parse(localStorage.getItem(TAB_KEY) || "{}");
+  const [electionInfo, setElectionData] = useState({
+    position: "",
+    description: "",
+    startDate: "",
+    endDate: "",
+    ...storedElectionInfo,
+  });
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [isFirstInputFilled, setIsFirstInputFilled] = useState(false);
@@ -45,10 +53,15 @@ export default function Description() {
   };
 
   const showToastMessage = () => {
-    toast.error(`choose a date after ${startDate}`, {
-      position: toast.POSITION.TOP_RIGHT,
+    toast.error("choose a date after the start date", {
+      position: toast.POSITION.TOP_LEFT,
     });
   };
+
+  // Save data to localStorage when the component unmounts
+  useEffect(() => {
+    localStorage.setItem(TAB_KEY, JSON.stringify(electionInfo));
+  }, [electionInfo]);
 
   return (
     <div className="w-[full]  mt-8 p-4 flex flex-col items-center">
@@ -60,26 +73,29 @@ export default function Description() {
         <Input
           label="position name?"
           desc="Class prefect"
+          value={electionInfo.position}
           onChange={(value) => handleInputChange("position", value)}
         />
         <Input
           label="what is this election about?"
           desc="the new class leader"
+          value={electionInfo.description}
           onChange={(value) => handleInputChange("description", value)}
         />
         <div className="flex gap-4 w-full">
           <Input
             label="Start date"
             type="date"
+            value={electionInfo.startDate}
             onChange={handleStartDateChange}
             minDate={new Date().toISOString().split("T")[0]}
           />
           <Input
             label="End date"
             type="date"
+            value={electionInfo.endDate}
             onChange={handleEndDateChange}
             minDate={startDate}
-            value={endDate}
             disabled={!isFirstInputFilled}
           />
         </div>

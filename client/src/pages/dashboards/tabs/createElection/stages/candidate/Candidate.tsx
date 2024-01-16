@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { BsPersonPlus } from "react-icons/bs";
-import { CandidateInfo } from "../../../../../components/molecules";
-import { CandidateDataType } from "../../../../../repository/types/types";
+import { CandidateInfo } from "../../../../../../components/molecules";
+import { CandidateDataType } from "../../../../../../repository/types/types";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../../../lib/hooks";
-import { RootState } from "../../../../../redux/store/store";
-import { updateCandidates } from "../../../../../redux/slices/createElection/electionInput.slice";
+import { useAppDispatch, useAppSelector } from "../../../../../../lib/hooks";
+import { RootState } from "../../../../../../redux/store/store";
+import { updateCandidates } from "../../../../../../redux/slices/createElection/electionInput.slice";
 
 export default function Candidate() {
   const dispatch = useAppDispatch();
