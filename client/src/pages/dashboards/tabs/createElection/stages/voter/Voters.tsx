@@ -1,13 +1,13 @@
 import React, { useState, useRef } from "react";
 import { BsPersonPlus } from "react-icons/bs";
-import { Input } from "../../../../../components/atoms";
+import { Input } from "../../../../../../components/atoms";
 import { FaPeopleGroup, FaRegCopy } from "react-icons/fa6";
 import {
   updateData,
   updateVoters,
-} from "../../../../../redux/slices/createElection/electionInput.slice";
-import { useAppDispatch, useAppSelector } from "../../../../../lib/hooks";
-import { RootState } from "../../../../../redux/store/store";
+} from "../../../../../../redux/slices/createElection/electionInput.slice";
+import { useAppDispatch, useAppSelector } from "../../../../../../lib/hooks";
+import { RootState } from "../../../../../../redux/store/store";
 
 export default function Voters() {
   const dispatch = useAppDispatch();
