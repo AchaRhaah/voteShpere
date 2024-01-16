@@ -140,6 +140,7 @@ export default function Voters() {
               <input
                 type={"text"}
                 className=" outline-none"
+                readOnly
                 value={"http://localhost:5173/dashboard/create-election?"}
               />
 
