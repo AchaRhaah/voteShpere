@@ -31,7 +31,7 @@ export default function Description() {
 
   const handleStartDateChange = (value: string) => {
     setStartDate(value);
-    setElectionData((prevData) => ({ ...prevData, startDate: value }));
+    setElectionData((prevData: any) => ({ ...prevData, startDate: value }));
 
     setIsFirstInputFilled(value !== "");
   };
@@ -39,14 +39,14 @@ export default function Description() {
   const handleEndDateChange = (value: string) => {
     if (value >= startDate) {
       setEndDate(value);
-      setElectionData((prevData) => ({ ...prevData, endDate: value }));
+      setElectionData((prevData: any) => ({ ...prevData, endDate: value }));
     } else {
       showToastMessage();
     }
   };
 
   const handleInputChange = (feildName: string, value: string) => {
-    setElectionData((prevData) => ({
+    setElectionData((prevData: any) => ({
       ...prevData,
       [feildName]: value,
     }));
