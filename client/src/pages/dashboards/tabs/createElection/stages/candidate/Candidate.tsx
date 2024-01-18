@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BsPersonPlus } from "react-icons/bs";
 import { CandidateInfo } from "../../../../../../components/molecules";
 import { CandidateDataType } from "../../../../../../repository/types/types";
@@ -7,15 +7,28 @@ import { useAppDispatch, useAppSelector } from "../../../../../../lib/hooks";
 import { RootState } from "../../../../../../redux/store/store";
 import { updateCandidates } from "../../../../../../redux/slices/createElection/electionInput.slice";
 
+const LOCAL_STORAGE_KEY = "candidatesData";
+
 export default function Candidate() {
   const dispatch = useAppDispatch();
   const state = useAppSelector((state: RootState) => state.electionInputSlice);
-  console.log(state);
   const [candidates, setCandidates] = useState<CandidateDataType[]>([]);
   const navigation = useNavigate();
   const [addCandidate, setAddCandidate] = useState<number>(0);
+
+  useEffect(() => {
+    const storedCandidates = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (storedCandidates) {
+      setCandidates(JSON.parse(storedCandidates));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(candidates));
+  }, [candidates]);
+
   const handlePreviousStage = () => {
-    navigation("/dashboard/create-election/candidate");
+    navigation("/dashboard/create-election/description");
   };
 
   const handleNextStage = (e: React.FormEvent) => {
@@ -32,13 +45,14 @@ export default function Candidate() {
     ]);
     e.preventDefault();
   };
+
   return (
     <div className="w-full flex flex-col items-center justify-center my-3">
       <h3 className="font-bold text-2xl w-[90%] flex justify-center">
         Candidates
       </h3>
 
-      {candidates.length == 0 ? (
+      {candidates.length === 0 ? (
         <p className="my-4">No candidate</p>
       ) : (
         <form
