@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { BsPersonPlus } from "react-icons/bs";
 import { Input } from "../../../../../../components/atoms";
 import { FaPeopleGroup, FaRegCopy } from "react-icons/fa6";
@@ -6,16 +6,36 @@ import {
   updateData,
   updateVoters,
 } from "../../../../../../redux/slices/createElection/electionInput.slice";
-import { useAppDispatch, useAppSelector } from "../../../../../../lib/hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../../../repository/hooks";
 import { RootState } from "../../../../../../redux/store/store";
 
 export default function Voters() {
   const dispatch = useAppDispatch();
-
+  const LOCAL_STORAGE_KEY = "votersData";
   const [voterEmails, setVoterEmails] = useState<string[]>([]);
   const [isOpenToAll, setIsOpenToAll] = useState<boolean>(true);
   const [newEmail, setNewEmail] = useState<string>("");
   const [voteType, setVoteType] = useState<string>();
+
+  useEffect(() => {
+    const storedVoters = localStorage.getItem(LOCAL_STORAGE_KEY);
+
+    if (storedVoters !== null) {
+      const parsedVoters = JSON.parse(storedVoters);
+      if (Array.isArray(parsedVoters) && parsedVoters.length > 0) {
+        setVoterEmails(parsedVoters);
+        setVoteType("specific");
+        setIsOpenToAll(false);
+      }
+    }
+  }, []); // Remove voterEmails from the dependency array
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(voterEmails));
+  }, [voterEmails]);
 
   const state = useAppSelector((state: RootState) => state.electionInputSlice);
   console.log(state);
@@ -26,6 +46,8 @@ export default function Voters() {
       setVoterEmails((prevEmails) => [...prevEmails, newEmail]);
       setNewEmail("");
     }
+    dispatch(updateData(isOpenToAll));
+    dispatch(updateVoters(voterEmails));
   };
 
   const handleRemoveVOter = (e: React.MouseEvent, index: number) => {
@@ -47,8 +69,6 @@ export default function Voters() {
 
   const handleCreateElection = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(updateData(isOpenToAll));
-    dispatch(updateVoters(voterEmails));
   };
 
   return (
@@ -139,7 +159,7 @@ export default function Voters() {
             <div className="border rounded-lg p-2 flex justify-between">
               <input
                 type={"text"}
-                className=" outline-none"
+                className=" outline-none w-[90%]"
                 readOnly
                 value={"http://localhost:5173/dashboard/create-election?"}
               />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Input } from "../../../../../../components/atoms";
 import { ToastContainer, toast } from "react-toastify";
-import { useAppDispatch } from "../../../../../../lib/hooks";
+import { useAppDispatch } from "../../../../../../repository/hooks";
 import { useNavigate } from "react-router-dom";
 import { updateData } from "../../../../../../redux/slices/createElection/electionInput.slice";
 import "react-toastify/dist/ReactToastify.css";

@@ -79,13 +79,13 @@ const authSlice = createSlice({
         state.login.message = action.payload as AxiosError;
       })
       .addCase(loginThunk.fulfilled, (state, action) => {
-        state.login.isLoading = false;
-        state.login.isError = false;
-        state.login.isSuccess = true;
-        state.login.accessToken = action.payload.data.token;
-        state.login.user.userId = action.payload.data.user;
-        state.login.message = "";
-        console.log("fulfilled login");
+                console.log("fulfilled login", action.payload);
+                state.login.isLoading = false;
+                state.login.isError = false;
+                state.login.isSuccess = true;
+                state.login.accessToken = action.payload.token;
+                state.login.user.userId = action.payload.user;
+                state.login.message = "";
       })
       .addCase(LogoutThunk.pending, (state) => {
         state.logout.isLoading = true;

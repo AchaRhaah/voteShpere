@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { handleError } from "../../lib/functions/ErrorMessages";
+import { handleError } from "../../repository/functions/ErrorMessages";
 import { Logo, Avatar, GoogleBtn, Input, Loader } from "../../components/atoms";
 import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../lib/hooks/index";
+import { useAppDispatch, useAppSelector } from "../../repository/hooks/index";
 import { registerThunk } from "../../redux/thunk/auth.thunk";
 import { authDataType } from "../../repository/types/auth/AuthTypes";
 import { RootState } from "../../redux/store/store";
