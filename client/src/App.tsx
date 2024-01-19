@@ -8,6 +8,7 @@ import {
   CreateElection,
   History,
 } from "./pages";
+import PrivateRoute from "./repository/utils/PrivateRoute";
 import {
   Description,
   Candidate,
