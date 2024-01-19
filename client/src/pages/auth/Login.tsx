@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { Logo, Avatar, GoogleBtn, Input, Loader } from "../../components/atoms";
 import { loginThunk } from "../../redux/thunk/auth.thunk";
 import { Link } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../lib/hooks";
+import { useAppDispatch, useAppSelector } from "../../repository/hooks";
 import { RootState } from "../../redux/store/store";
 import { authDataType } from "../../repository/types/auth/AuthTypes";
-import { handleError } from "../../lib/functions/ErrorMessages";
+import { handleError } from "../../repository/functions/ErrorMessages";
 
 export default function Login() {
   const dispatch = useAppDispatch();
@@ -35,6 +35,8 @@ export default function Login() {
   };
 
   // navigation("/dashboard/voting");
+
+  console.log(login.isLoading);
 
   return (
     <div className="w-full h-screen flex ">
@@ -70,7 +72,7 @@ export default function Login() {
             className={` ${
               login.isLoading ? "bg-[#3a71c5]" : "bg-[#065AD8]"
             } text-white w-full p-1 rounded-md my-5 flex items-center justify-center gap-2`}
-            disabled={login.isLoading}
+            // disabled={login.isLoading}
           >
             {login.isLoading && <Loader />}
             Login

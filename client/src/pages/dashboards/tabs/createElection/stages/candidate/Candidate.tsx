@@ -3,28 +3,27 @@ import { BsPersonPlus } from "react-icons/bs";
 import { CandidateInfo } from "../../../../../../components/molecules";
 import { CandidateDataType } from "../../../../../../repository/types/types";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../../../../lib/hooks";
-import { RootState } from "../../../../../../redux/store/store";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../../../repository/hooks";
 import { updateCandidates } from "../../../../../../redux/slices/createElection/electionInput.slice";
 
 const LOCAL_STORAGE_KEY = "candidatesData";
 
 export default function Candidate() {
   const dispatch = useAppDispatch();
-  const state = useAppSelector((state: RootState) => state.electionInputSlice);
   const [candidates, setCandidates] = useState<CandidateDataType[]>([]);
   const navigation = useNavigate();
-  const [addCandidate, setAddCandidate] = useState<number>(0);
 
   useEffect(() => {
     const storedCandidates = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (storedCandidates) {
+    if (storedCandidates && candidates.length === 0) {
       setCandidates(JSON.parse(storedCandidates));
     }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(candidates));
+    if (candidates.length > 0) {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(candidates));
+    }
   }, [candidates]);
 
   const handlePreviousStage = () => {
@@ -38,7 +37,6 @@ export default function Candidate() {
   };
 
   const AddCandidates = (e: React.MouseEvent) => {
-    setAddCandidate((prev) => prev + 1);
     setCandidates((prevCandidates) => [
       ...prevCandidates,
       { name: "", description: "" },
@@ -70,7 +68,7 @@ export default function Candidate() {
 
           <button
             className={` ${
-              addCandidate > 0 ? "flex" : "hidden"
+              candidates.length > 0 ? "flex" : "hidden"
             } flex gap-2 border p-4 rounded-lg border-[#EC9A4A] w-[30%] mt-8 items-center justify-center`}
             onClick={AddCandidates}
           >

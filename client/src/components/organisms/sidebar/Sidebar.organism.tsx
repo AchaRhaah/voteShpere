@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../lib/hooks";
+import { useAppDispatch, useAppSelector } from "../../../repository/hooks";
 import { sidebarLinks } from "../../../repository/data/links";
 import { LogoutThunk } from "../../../redux/thunk/auth.thunk";
 import { RootState } from "../../../redux/store/store";
