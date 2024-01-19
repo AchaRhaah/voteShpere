@@ -8,6 +8,7 @@ import { Loader } from "../../atoms";
 import { Link, useNavigate } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
 import { useLocation } from "react-router-dom";
+import PrivateRoute from "../../../repository/utils/PrivateRoute";
 
 export default function Sidebar() {
   const location = useLocation();
