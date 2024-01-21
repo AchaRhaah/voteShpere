@@ -10,7 +10,6 @@ import { RootState } from "../../redux/store/store";
 export default function Register() {
   const navigation = useNavigate();
   const dispatch = useAppDispatch();
-  navigation("/dashboard/voting");
   const { register } = useAppSelector((state: RootState) => state.authSlice);
 
   const [userData, setUserData] = useState<authDataType>({
@@ -45,7 +44,7 @@ export default function Register() {
   return (
     <div className="w-full h-screen flex ">
       {/* left side */}
-      <div className="w-1/2 flex flex-col justify-center px-20">
+      <div className="w-1/2 flex flex-col justify-center px-12">
         <GoogleBtn text="Sign up with google" />
         <div className="w-full flex items-center justify-between mt-4">
           <div className="border-t-[1.4px] w-[45%] "></div>
@@ -105,7 +104,7 @@ export default function Register() {
         </form>
       </div>
       {/* right side */}
-      <div className="w-1/2 bg-[#065AD8] flex flex-col text-white px-20 justify-center items-left">
+      <div className="w-1/2 bg-[#065AD8] flex flex-col text-white px-16 justify-center items-left">
         <Logo />
         <h1 className="font-bold text-2xl mt-6">
           Empowering Democracy, One Vote at a Time. Welcome to our Online Voting

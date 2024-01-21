@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 import {
   registerThunk,
   loginThunk,
@@ -12,25 +13,19 @@ const initialState: AuthType = {
     isError: false,
     isSuccess: false,
     isLoading: false,
-    accessToken: "",
     message: "",
-    user: { userId: "" },
   },
   login: {
-    accessToken: "",
     isError: false,
     isSuccess: false,
     isLoading: false,
     message: "",
-    user: { userId: "" },
   },
   logout: {
-    accessToken: "",
     isError: false,
     isSuccess: false,
     isLoading: false,
     message: "",
-    user: { userId: "" },
   },
 };
 
@@ -62,10 +57,12 @@ const authSlice = createSlice({
         state.register.isLoading = false;
         state.register.isError = false;
         state.register.isSuccess = true;
-        state.register.accessToken = action.payload.data.token;
-        state.register.user.userId = action.payload.data.user;
+        // state.register.user.userId = action.payload.data.user;
         state.register.message = "";
-        console.log("fulfilled login")
+        Cookies.set("accessToken", action.payload.token);
+        Cookies.set("user", action.payload.user);
+
+        console.log("fulfilled login");
       })
       .addCase(loginThunk.pending, (state) => {
         state.login.isLoading = true;
@@ -79,19 +76,20 @@ const authSlice = createSlice({
         state.login.message = action.payload as AxiosError;
       })
       .addCase(loginThunk.fulfilled, (state, action) => {
-                console.log("fulfilled login", action.payload);
-                state.login.isLoading = false;
-                state.login.isError = false;
-                state.login.isSuccess = true;
-                state.login.accessToken = action.payload.token;
-                state.login.user.userId = action.payload.user;
-                state.login.message = "";
+        console.log("fulfilled login", action.payload);
+        state.login.isLoading = false;
+        state.login.isError = false;
+        state.login.isSuccess = true;
+        // state.login.user.userId = action.payload.user;
+        state.login.message = "";
+        Cookies.set("accessToken", action.payload.token);
+        Cookies.set("user", action.payload.user);
       })
       .addCase(LogoutThunk.pending, (state) => {
+        console.log("Processing");
         state.logout.isLoading = true;
         state.logout.isError = false;
         state.logout.isSuccess = false;
-        console.log("Processing");
       })
       .addCase(LogoutThunk.rejected, (state, action) => {
         state.logout.isLoading = false;
@@ -101,11 +99,12 @@ const authSlice = createSlice({
         console.log("Rejected");
       })
       .addCase(LogoutThunk.fulfilled, (state, action) => {
+        console.log("logged out");
         state.logout.isLoading = false;
         state.logout.isError = false;
         state.logout.isSuccess = true;
-        state.logout.accessToken = action.payload.data.token;
-        state.logout.user.userId = action.payload.data.user;
+        Cookies.set("accessToken", action.payload.token);
+        Cookies.set("user", action.payload.user);
         state.logout.message = "";
       });
   },

@@ -1,7 +1,8 @@
 import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
 const isAuthenticated = () => {
-  const token = "";
+  const token = Cookies.get("accessToken");
   if (!token) {
     return false;
   }
@@ -15,3 +16,5 @@ const isAuthenticated = () => {
     return false;
   }
 };
+
+export default isAuthenticated;
