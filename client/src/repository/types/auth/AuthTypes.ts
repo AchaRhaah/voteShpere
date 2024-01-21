@@ -13,8 +13,6 @@ export interface AuthStateType {
   isSuccess: boolean;
   isLoading: boolean;
   message: AxiosError | any;
-  user: UserType;
-  accessToken: String;
 }
 
 export interface AuthType {

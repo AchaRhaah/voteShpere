@@ -25,20 +25,30 @@ export const router = [
     element: <Register />,
   },
   {
-    path: "/dashboard",
+    path: "/dashboard/*",
     element: <Dashboard />,
     children: [
-      { path: "voting", element: <Voting /> },
       {
-        path: "create-election",
-        element: <CreateElection />,
+        // index: true,
+        path: "voting/*",
+        element: <PrivateRoute element={<Voting />} />,
+      },
+      {
+        path: "create-election/*",
+        element: <PrivateRoute element={<CreateElection />} />,
         children: [
-          { path: "description", element: <Description /> },
-          { path: "candidate", element: <Candidate /> },
-          { path: "voters", element: <Voters /> },
+          {
+            path: "description",
+            element: <PrivateRoute element={<Description />} />,
+          },
+          {
+            path: "candidate",
+            element: <PrivateRoute element={<Candidate />} />,
+          },
+          { path: "voters", element: <PrivateRoute element={<Voters />} /> },
         ],
       },
-      { path: "history", element: <History /> },
+      { path: "history/*", element: <PrivateRoute element={<History />} /> },
     ],
   },
 ];
