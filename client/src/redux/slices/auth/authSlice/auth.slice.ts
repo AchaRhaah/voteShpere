@@ -80,7 +80,6 @@ const authSlice = createSlice({
         state.login.isLoading = false;
         state.login.isError = false;
         state.login.isSuccess = true;
-        // state.login.user.userId = action.payload.user;
         state.login.message = "";
         Cookies.set("accessToken", action.payload.token);
         Cookies.set("user", action.payload.user);

@@ -14,41 +14,45 @@ import { RootState } from "../../../../../../redux/store/store";
 
 export default function Voters() {
   const dispatch = useAppDispatch();
-  const LOCAL_STORAGE_KEY = "votersData";
+  // const LOCAL_STORAGE_KEY = "votersData";
   const [voterEmails, setVoterEmails] = useState<string[]>([]);
   const [isOpenToAll, setIsOpenToAll] = useState<boolean>(true);
   const [newEmail, setNewEmail] = useState<string>("");
   const [voteType, setVoteType] = useState<string>();
 
-  useEffect(() => {
-    const storedVoters = localStorage.getItem(LOCAL_STORAGE_KEY);
+  // useEffect(() => {
+  //   const storedVoters = localStorage.getItem(LOCAL_STORAGE_KEY);
 
-    if (storedVoters !== null) {
-      const parsedVoters = JSON.parse(storedVoters);
-      if (Array.isArray(parsedVoters) && parsedVoters.length > 0) {
-        setVoterEmails(parsedVoters);
-        setVoteType("specific");
-        setIsOpenToAll(false);
-      }
-    }
-  }, []); // Remove voterEmails from the dependency array
+  //   if (storedVoters !== null) {
+  //     const parsedVoters = JSON.parse(storedVoters);
+  //     if (Array.isArray(parsedVoters) && parsedVoters.length > 0) {
+  //       setVoterEmails(parsedVoters);
+  //       setVoteType("specific");
+  //       setIsOpenToAll(false);
+  //     }
+  //   }
+  // }, []); // Remove voterEmails from the dependency array
 
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(voterEmails));
-  }, [voterEmails]);
+  // useEffect(() => {
+  //   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(voterEmails));
+  // }, [voterEmails]);
 
-  const state = useAppSelector((state: RootState) => state.electionInputSlice);
-  console.log(state);
+  const state = useAppSelector((state: RootState) => state.CreateElectionSlice);
+  console.log(state.data);
 
   const handleAddVoter = (e: React.MouseEvent) => {
     e.preventDefault();
     if (newEmail.trim() !== "") {
+      console.log("new", newEmail);
       setVoterEmails((prevEmails) => [...prevEmails, newEmail]);
       setNewEmail("");
     }
-    dispatch(updateData(isOpenToAll));
-    dispatch(updateVoters(voterEmails));
   };
+
+  useEffect(() => {
+    dispatch(updateVoters(voterEmails));
+    dispatch(updateData(isOpenToAll));
+  }, [voterEmails, isOpenToAll]);
 
   const handleRemoveVOter = (e: React.MouseEvent, index: number) => {
     e.preventDefault();

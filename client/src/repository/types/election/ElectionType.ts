@@ -1,3 +1,4 @@
+import { RequestTypes } from "../auth/AuthTypes";
 export interface ElectionType {
   position: string;
   description: string;
@@ -7,4 +8,9 @@ export interface ElectionType {
   creator: string;
   startDate: string;
   endDate: string;
+}
+
+export interface electionStates {
+  data: ElectionType;
+  states: RequestTypes;
 }

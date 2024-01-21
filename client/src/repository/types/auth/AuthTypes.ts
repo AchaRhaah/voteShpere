@@ -8,7 +8,7 @@ export interface authDataType {
 export interface UserType {
   userId: string;
 }
-export interface AuthStateType {
+export interface RequestTypes {
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;
@@ -16,7 +16,7 @@ export interface AuthStateType {
 }
 
 export interface AuthType {
-  login: AuthStateType;
-  register: AuthStateType;
-  logout: AuthStateType;
+  login: RequestTypes;
+  register: RequestTypes;
+  logout: RequestTypes;
 }
