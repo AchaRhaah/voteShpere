@@ -14,6 +14,7 @@ import {
   Candidate,
   Voters,
 } from "./pages/dashboards/tabs/createElection/stages";
+import UserDashboard from "./pages/dashboards/UserDashboard";
 
 export const router = [
   {
@@ -26,29 +27,29 @@ export const router = [
   },
   {
     path: "/dashboard/*",
-    element: <Dashboard />,
+    element: <PrivateRoute Component={UserDashboard} />,
     children: [
       {
         // index: true,
         path: "voting/*",
-        element: <PrivateRoute element={<Voting />} />,
+        element: <PrivateRoute Component={Voting} />,
       },
       {
         path: "create-election/*",
-        element: <PrivateRoute element={<CreateElection />} />,
+        element: <PrivateRoute Component={CreateElection} />,
         children: [
           {
             path: "description",
-            element: <PrivateRoute element={<Description />} />,
+            element: <PrivateRoute Component={Description} />,
           },
           {
             path: "candidate",
-            element: <PrivateRoute element={<Candidate />} />,
+            element: <PrivateRoute Component={Candidate} />,
           },
-          { path: "voters", element: <PrivateRoute element={<Voters />} /> },
+          { path: "voters", element: <PrivateRoute Component={Voters} /> },
         ],
       },
-      { path: "history/*", element: <PrivateRoute element={<History />} /> },
+      { path: "history/*", element: <PrivateRoute Component={History} /> },
     ],
   },
 ];

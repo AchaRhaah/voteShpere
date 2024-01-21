@@ -1,23 +1,28 @@
 import React, { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 import { Input } from "../../../../../../components/atoms";
 import { ToastContainer, toast } from "react-toastify";
 import { useAppDispatch } from "../../../../../../repository/hooks";
 import { useNavigate } from "react-router-dom";
-import { updateData } from "../../../../../../redux/slices/createElection/electionInput.slice";
+import {
+  updateData,
+  updateCreateor,
+} from "../../../../../../redux/slices/createElection/electionInput.slice";
 import "react-toastify/dist/ReactToastify.css";
 
-const TAB_KEY = "createElectionDescription";
+// const TAB_KEY = "createElectionDescription";
 
 export default function Description() {
+  const user = Cookies.get("user");
   const navigation = useNavigate();
   const dispatch = useAppDispatch();
-  const storedElectionInfo = JSON.parse(localStorage.getItem(TAB_KEY) || "{}");
+  // const storedElectionInfo = JSON.parse(localStorage.getItem(TAB_KEY) || "{}");
   const [electionInfo, setElectionData] = useState({
     position: "",
     description: "",
     startDate: "",
     endDate: "",
-    ...storedElectionInfo,
+    // ...storedElectionInfo,
   });
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -26,13 +31,13 @@ export default function Description() {
   const handleNextStage = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(updateData(electionInfo));
+    dispatch(updateCreateor(user));
     navigation("/dashboard/create-election/candidate");
   };
 
   const handleStartDateChange = (value: string) => {
     setStartDate(value);
     setElectionData((prevData: any) => ({ ...prevData, startDate: value }));
-
     setIsFirstInputFilled(value !== "");
   };
 
@@ -59,9 +64,9 @@ export default function Description() {
   };
 
   // Save data to localStorage when the component unmounts
-  useEffect(() => {
-    localStorage.setItem(TAB_KEY, JSON.stringify(electionInfo));
-  }, [electionInfo]);
+  // useEffect(() => {
+  //   localStorage.setItem(TAB_KEY, JSON.stringify(electionInfo));
+  // }, [electionInfo]);
 
   return (
     <div className="w-[full]  mt-8 p-4 flex flex-col items-center">

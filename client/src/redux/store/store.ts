@@ -2,8 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import middlewareArray from "./middleware";
-import rootReducer from "./rootReducers";
-
+import { rootReducer } from "./rootReducers";
 const persistConfig = {
   key: "root",
   storage,

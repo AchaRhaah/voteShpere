@@ -9,22 +9,22 @@ import {
 } from "../../../../../../repository/hooks";
 import { updateCandidates } from "../../../../../../redux/slices/createElection/electionInput.slice";
 
-const LOCAL_STORAGE_KEY = "candidatesData";
+// const LOCAL_STORAGE_KEY = "candidatesData";
 
 export default function Candidate() {
   const dispatch = useAppDispatch();
   const [candidates, setCandidates] = useState<CandidateDataType[]>([]);
   const navigation = useNavigate();
 
-  useEffect(() => {
-    const storedCandidates = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (storedCandidates && candidates.length === 0) {
-      setCandidates(JSON.parse(storedCandidates));
-    }
-    if (candidates.length > 0) {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(candidates));
-    }
-  }, [candidates]);
+  // useEffect(() => {
+  //   const storedCandidates = localStorage.getItem(LOCAL_STORAGE_KEY);
+  //   if (storedCandidates && candidates.length === 0) {
+  //     setCandidates(JSON.parse(storedCandidates));
+  //   }
+  //   if (candidates.length > 0) {
+  //     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(candidates));
+  //   }
+  // }, [candidates]);
 
   const handlePreviousStage = () => {
     navigation("/dashboard/create-election/description");

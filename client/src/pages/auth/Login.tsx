@@ -32,11 +32,10 @@ export default function Login() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(loginThunk(userData));
+    navigation("/dashboard/voting");
   };
 
-  // navigation("/dashboard/voting");
 
-  console.log(login.isLoading);
 
   return (
     <div className="w-full h-screen flex ">

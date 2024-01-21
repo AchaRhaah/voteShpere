@@ -1,19 +1,15 @@
-import React, { ReactElement } from "react";
-import { Route, Navigate, RouteProps, Routes } from "react-router";
+import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 import isAuthenticated from "../functions/Authentication";
 
-interface PrivateRouteProps extends RouteProps {
-  element: ReactElement;
+interface PrivateRouteProps {
+  Component: React.ElementType;
 }
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ element, ...rest }) => {
-  return isAuthenticated() ? (
-    <Routes>
-      <Route {...rest} element={element} />
-    </Routes>
-  ) : (
-    <Navigate to="/" replace />
-  );
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ Component }) => {
+  // Your authentication logic goes here...
+
+  return isAuthenticated() ? <Component /> : <Navigate to="/" />;
 };
 
 export default PrivateRoute;
