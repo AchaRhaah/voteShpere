@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BsPersonPlus } from "react-icons/bs";
 import { Input } from "../../../../../../components/atoms";
 import { FaPeopleGroup, FaRegCopy } from "react-icons/fa6";
@@ -11,6 +11,7 @@ import {
   useAppSelector,
 } from "../../../../../../repository/hooks";
 import { RootState } from "../../../../../../redux/store/store";
+import { createElectionThunk } from "../../../../../../redux/thunk/election.thunk";
 
 export default function Voters() {
   const dispatch = useAppDispatch();
@@ -19,6 +20,16 @@ export default function Voters() {
   const [isOpenToAll, setIsOpenToAll] = useState<boolean>(true);
   const [newEmail, setNewEmail] = useState<string>("");
   const [voteType, setVoteType] = useState<string>();
+  // const sure = {
+  //   position: "maid",
+  //   description: "cleaner",
+  //   isOpenToAll: true,
+  //   candidates: ["65974126f84f8405d67b5da8"],
+  //   voters: ["65974126f84f8405d67b5da8"],
+  //   creator: "65974126f84f8405d67b5da8",
+  //   startDate: "2023-01-01T00:00:00Z",
+  //   endDate: "2023-01-31T23:59:59Z",
+  // };
 
   // useEffect(() => {
   //   const storedVoters = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -73,6 +84,7 @@ export default function Voters() {
 
   const handleCreateElection = (e: React.FormEvent) => {
     e.preventDefault();
+    dispatch(createElectionThunk(state.data));
   };
 
   return (
@@ -116,9 +128,9 @@ export default function Voters() {
                     } `}
                     key={index}
                   >
-                    <p>{email}</p>
+                    <p className="w-3/5">{email}</p>
                     <button
-                      className="bg-[#F2F8FD] text-[#065ADB] p-1 rounded-md"
+                      className="bg-[#F2F8FD] text-[#065ADB] p-1 rounded-md w-2/5"
                       onClick={(e) => handleRemoveVOter(e, index)}
                     >
                       remove
@@ -191,3 +203,8 @@ export default function Voters() {
     </div>
   );
 }
+
+
+
+
+

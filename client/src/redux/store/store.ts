@@ -6,6 +6,7 @@ import { rootReducer } from "./rootReducers";
 const persistConfig = {
   key: "root",
   storage,
+  // whitelist: ["rootReducer"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

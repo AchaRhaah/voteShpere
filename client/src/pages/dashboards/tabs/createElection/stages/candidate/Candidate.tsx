@@ -8,12 +8,19 @@ import {
   useAppSelector,
 } from "../../../../../../repository/hooks";
 import { updateCandidates } from "../../../../../../redux/slices/createElection/electionInput.slice";
+import { RootState } from "../../../../../../redux/store/store";
 
 // const LOCAL_STORAGE_KEY = "candidatesData";
 
 export default function Candidate() {
+  const candidatesInState = useAppSelector(
+    (state: RootState) => state.CreateElectionSlice.data.candidates
+  );
+  console.log(candidatesInState);
   const dispatch = useAppDispatch();
-  const [candidates, setCandidates] = useState<CandidateDataType[]>([]);
+  const [candidates, setCandidates] = useState<CandidateDataType[]>(
+    candidatesInState || []
+  );
   const navigation = useNavigate();
 
   // useEffect(() => {
@@ -43,6 +50,11 @@ export default function Candidate() {
     ]);
     e.preventDefault();
   };
+
+  // update local state when redux state chanfes
+  useEffect(() => {
+    setCandidates(candidatesInState || []);
+  }, [candidatesInState]);
 
   return (
     <div className="w-full flex flex-col items-center justify-center my-3">

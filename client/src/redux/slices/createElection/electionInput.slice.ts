@@ -54,17 +54,20 @@ const CreateElectionSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createElectionThunk.pending, (state) => {
+        console.log("pending")
         state.states.isLoading = true;
         state.states.isError = false;
         state.states.isSuccess = false;
       })
       .addCase(createElectionThunk.rejected, (state, action) => {
+        console.log("rejected");
         state.states.isLoading = false;
         state.states.isError = true;
         state.states.isSuccess = false;
         state.states.message = action.payload as AxiosError;
       })
       .addCase(createElectionThunk.fulfilled, (state) => {
+        console.log("fulfilled");
         state.states.isLoading = true;
         state.states.isError = false;
         state.states.isSuccess = false;
