@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Logo, Avatar, GoogleBtn, Input, Loader } from "../../components/atoms";
 import { loginThunk } from "../../redux/thunk/auth.thunk";
@@ -32,10 +32,13 @@ export default function Login() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(loginThunk(userData));
-    navigation("/dashboard/voting");
   };
 
-
+  useEffect(() => {
+    if (login.isSuccess) {
+      navigation("/dashboard/voting");
+    }
+  }, [login.isSuccess]);
 
   return (
     <div className="w-full h-screen flex ">

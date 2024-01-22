@@ -2,13 +2,17 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { Input } from "../../../../../../components/atoms";
 import { ToastContainer, toast } from "react-toastify";
-import { useAppDispatch } from "../../../../../../repository/hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../../../repository/hooks";
 import { useNavigate } from "react-router-dom";
 import {
   updateData,
   updateCreateor,
 } from "../../../../../../redux/slices/createElection/electionInput.slice";
 import "react-toastify/dist/ReactToastify.css";
+import { RootState } from "../../../../../../redux/store/store";
 
 // const TAB_KEY = "createElectionDescription";
 
@@ -16,16 +20,20 @@ export default function Description() {
   const user = Cookies.get("user");
   const navigation = useNavigate();
   const dispatch = useAppDispatch();
+  const electionInfoState = useAppSelector(
+    (state: RootState) => state.CreateElectionSlice.data
+  );
+  console.log(electionInfoState);
   // const storedElectionInfo = JSON.parse(localStorage.getItem(TAB_KEY) || "{}");
   const [electionInfo, setElectionData] = useState({
-    position: "",
-    description: "",
-    startDate: "",
-    endDate: "",
+    position: electionInfoState.position || "",
+    description: electionInfoState.description || "",
+    startDate: electionInfoState.startDate || "",
+    endDate: electionInfoState.endDate || "",
     // ...storedElectionInfo,
   });
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState("" || electionInfoState.startDate);
+  const [endDate, setEndDate] = useState("" || electionInfoState.endDate);
   const [isFirstInputFilled, setIsFirstInputFilled] = useState(false);
 
   const handleNextStage = (e: React.FormEvent) => {

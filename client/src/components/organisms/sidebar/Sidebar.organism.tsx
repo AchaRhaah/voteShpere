@@ -44,7 +44,7 @@ export default function Sidebar() {
                       <li
                         key={index}
                         className={`${
-                          lastSegment == path
+                          lastSegment.includes(path)
                             ? "bg-[#F2F8FD] rounded-lg text-[#065AD8] "
                             : ""
                         } flex gap-2 items-center p-2 `}
