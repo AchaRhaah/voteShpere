@@ -64,7 +64,7 @@ export default function CandidateInfo({
           value={candidates[candidateNum - 1]?.description || ""}
         />
         <button
-          className="bg-[#FF4D4D] px-2 py-1 rounded-sm text-white
+          className="bg-[#FF4D4D] px-2 py-1 rounded-sm text-white self-center
       "
         >
           remove
