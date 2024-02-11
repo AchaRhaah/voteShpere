@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes/authRoutes");
 const electionRoutes = require("./routes/electionRoutes/electionRoutes");
+const voteRoutes = require("./routes/voteRoutes/VoteRoutes");
 const cookieRoutes = require("./routes/cookieRoutes/cookieRoutes");
 const cookieParser = require("cookie-parser");
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/api", authRoutes);
 app.use("/api", electionRoutes);
+app.use("/api", voteRoutes);
 app.use("/api", cookieRoutes);
 
 app.set("view engin", "ejs");
