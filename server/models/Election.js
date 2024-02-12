@@ -9,7 +9,7 @@ const electionSchema = new mongoose.Schema({
   creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    // required: true,
+    required: true,
   },
   invitedUsers: {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],

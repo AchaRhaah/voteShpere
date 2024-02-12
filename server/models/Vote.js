@@ -4,12 +4,16 @@ const voteSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   election: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "Election",
     required: true,
   },
   candidate: {
-    type: mongoose.Schema.type.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Candidate",
     required: true,
   },
 });
+
+const Vote = mongoose.model("Vote", voteSchema);
+
+module.exports = Vote;
