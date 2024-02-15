@@ -16,6 +16,7 @@ router.post("/create-election", async (req, res) => {
       candidates,
       startDate,
       endDate,
+      creator,
     } = req.body;
 
     if (!isOpenToAll && (!invitedUsers || invitedUsers.length === 0)) {
@@ -35,10 +36,30 @@ router.post("/create-election", async (req, res) => {
       candidates,
       startDate,
       endDate,
+      creator,
     });
 
-    //   send emails to invited users
-    if (!isOpenToAll) {
+    // Update involvedInElections for users
+    if (isOpenToAll) {
+      // If isOpenToAll is true, update all users
+      await User.updateMany(
+        {},
+        {
+          $addToSet: {
+            involvedInElections: { election: election._id, hasVoted: false },
+          },
+        }
+      );
+    } else {
+      // If isOpenToAll is false, update only invitedUsers
+      await User.updateMany(
+        { _id: { $in: invitedUsers } },
+        {
+          $addToSet: {
+            involvedInElections: { election: election._id, hasVoted: false },
+          },
+        }
+      );
     }
 
     res.status(201).json({ election });
