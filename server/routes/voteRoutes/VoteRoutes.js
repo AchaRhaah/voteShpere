@@ -2,6 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const Vote = require("../../models/Vote");
 const Election = require("../../models/Election");
+const User = require("../../models/User");
 
 router.post("/vote", async (req, res) => {
   try {
@@ -16,6 +17,17 @@ router.post("/vote", async (req, res) => {
 
     // Save the vote to the database
     await vote.save();
+
+    // Update the user's involvedInElections array
+    await User.findByIdAndUpdate(
+      userID,
+      {
+        $addToSet: {
+          involvedInElections: { hasVoted: true },
+        },
+      },
+      { new: true }
+    );
 
     // Check if the candidate already exists in the results array
     const election = await Election.findOne({
