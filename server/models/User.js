@@ -21,6 +21,19 @@ const userSchema = new mongoose.Schema({
     required: [true, "please enter a password"],
     minlength: [6, "Minimum password length is 6 characters"],
   },
+  involvedInElections: [
+    {
+      election: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Election",
+      },
+      hasVoted: {
+        type: Boolean,
+        default: false,
+      },
+      // Add more properties if needed
+    },
+  ],
 });
 userSchema.index({ email: 1 }, { unique: true });
 userSchema.index({ username: 1 }, { unique: true });
