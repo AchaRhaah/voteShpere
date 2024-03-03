@@ -7,6 +7,17 @@ const User = require("../../models/User");
 router.post("/vote", async (req, res) => {
   try {
     const { candidateID, userID, electionID } = req.body;
+    // Check if the current date is within the voting period
+    const electionPeriod = await Election.findById(electionID);
+    const currentDate = new Date();
+    if (
+      currentDate < electionPeriod.startDate ||
+      currentDate > electionPeriod.endDate
+    ) {
+      return res
+        .status(403)
+        .json({ error: "Voting is not allowed at this time." });
+    }
 
     // Create a new vote record
     const vote = new Vote({
